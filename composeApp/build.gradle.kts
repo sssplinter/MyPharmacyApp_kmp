@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
@@ -15,9 +16,9 @@ kotlin {
             }
         }
     }
-    
+
     jvm("desktop")
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -25,27 +26,47 @@ kotlin {
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
-            isStatic = true
+            isStatic = false
         }
     }
-    
+
+    val sqldelightVersion = "2.0.0"
+
     sourceSets {
         val desktopMain by getting
-        
+
+        val commonMain by getting {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.ui)
+
+                @OptIn(ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
+                implementation (libs.compose.material.dialogs.datetime)
+                implementation(libs.listenablefuture)
+                implementation(libs.kotlinx.datetime)
+                implementation(libs.voyager.navigator)
+
+                implementation("app.cash.sqldelight:runtime:$sqldelightVersion")
+            }
+        }
+
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("app.cash.sqldelight:android-driver:$sqldelightVersion")
+
         }
-        commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.ui)
-            @OptIn(ExperimentalComposeLibrary::class)
-            implementation(compose.components.resources)
+
+        iosMain.dependencies {
+            implementation("app.cash.sqldelight:native-driver:$sqldelightVersion")
         }
+
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation("app.cash.sqldelight:sqlite-driver:$sqldelightVersion")
         }
     }
 }
@@ -83,6 +104,10 @@ android {
         debugImplementation(libs.compose.ui.tooling)
     }
 }
+dependencies {
+    implementation(libs.androidx.compiler)
+    implementation("androidx.core:core-ktx:+")
+}
 
 compose.desktop {
     application {
@@ -92,6 +117,14 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "kr.sementsova.kmp_compose"
             packageVersion = "1.0.0"
+        }
+    }
+}
+
+sqldelight {
+    databases {
+        create("MyPharmacyDatabase") {
+            packageName.set("kr.sementsova.composeapp.db")
         }
     }
 }

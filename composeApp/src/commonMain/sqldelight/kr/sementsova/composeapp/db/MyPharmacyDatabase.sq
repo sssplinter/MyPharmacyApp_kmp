@@ -1,0 +1,31 @@
+CREATE TABLE Medicine (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT,
+    expirationDateUTC TEXT,
+    type_id INTEGER,
+    FOREIGN KEY (type_id) REFERENCES MedicineType(id)
+);
+
+CREATE TABLE MedicineType(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type TEXT NOT NULL
+);
+
+insertMedicineType:
+INSERT INTO MedicineType(type) VALUES (?);
+
+getAllMedicineTypes:
+SELECT MedicineType.* FROM MedicineType;
+
+getAllMedicines:
+SELECT Medicine.* FROM Medicine;
+
+insertMedicine:
+INSERT INTO Medicine(name, description, expirationDateUTC, type_id) VALUES (?, ?, ?, ?);
+
+deleteMedicine:
+DELETE FROM Medicine WHERE id=?;
+
+removeAllMedicines:
+DELETE FROM Medicine;
