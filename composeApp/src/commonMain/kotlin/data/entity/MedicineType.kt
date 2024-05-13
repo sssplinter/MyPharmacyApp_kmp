@@ -18,10 +18,3 @@ enum class MedicineTypeEnum(key: Int) {
     Sedatives(12),
     Vitamins(13)
 }
-
-// TODO think about how to convert it
-data class MyMedicineType(val type: MedicineType){
-    override fun toString(): String {
-        return type.type
-    }
-}

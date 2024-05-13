@@ -5,7 +5,7 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import kr.sementsova.composeapp.db.DatabaseDriverFactory
-import repository.MedicinesRepository
+import data.repository.MedicinesRepository
 
 fun main() = application {
     val medicinesRepository = MedicinesRepository(DatabaseDriverFactory())

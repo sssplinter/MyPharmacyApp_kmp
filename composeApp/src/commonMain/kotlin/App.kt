@@ -1,23 +1,26 @@
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.registry.ScreenRegistry
 import cafe.adriel.voyager.navigator.Navigator
-import common.MedicinesViewModel
-import navigation.AppScreen
-import repository.MedicinesRepository
-import screens.add_medicine.AddMedicineScreen
-import screens.medicines_list.MedicinesListScreen
+import presentation.navigation.AppScreen
+import presentation.ui.screens.add_medicine.screen.AddMedicineScreen
+import presentation.ui.screens.add_medicine.state.AddMedicineViewModel
+import presentation.ui.screens.medicines_list.screen.MedicinesListScreen
+import presentation.ui.screens.medicines_list.state.MedicinesListViewModel
 
 @Composable
-fun App(medicinesRepository: MedicinesRepository, viewModel: MedicinesViewModel) {
+fun App(
+    medicinesListViewModel: MedicinesListViewModel,
+    addMedicineViewModel: AddMedicineViewModel
+) {
 
     ScreenRegistry {
         register<AppScreen.MedicinesListAppScreen> {
-            MedicinesListScreen(viewModel)
+            MedicinesListScreen(medicinesListViewModel)
         }
         register<AppScreen.AddMedicineAppScreen> {
-            AddMedicineScreen(medicinesRepository)
+            AddMedicineScreen(addMedicineViewModel)
         }
     }
 
-    Navigator(MedicinesListScreen(viewModel))
+    Navigator(MedicinesListScreen(medicinesListViewModel))
 }

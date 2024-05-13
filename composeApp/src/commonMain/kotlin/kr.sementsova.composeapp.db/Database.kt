@@ -1,5 +1,6 @@
 package kr.sementsova.composeapp.db
 
+import kotlinx.datetime.toLocalDate
 import data.entity.Medicine as MedicineItem
 
 
@@ -16,7 +17,7 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
         dbQuery.insertMedicine(
             name = medicine.name,
             description = medicine.description,
-            expirationDateUTC = medicine.expirationDateUTC,
+            expirationDateUTC = medicine.expirationDate.toString(),
             type_id = medicine.typeId?.toLong()
         )
     }
@@ -48,7 +49,7 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
             id = id.toInt(),
             name = name,
             description = description,
-            expirationDateUTC = expirationDateUTC,
+            expirationDate = expirationDateUTC?.toLocalDate(),
             typeId = typeId?.toInt()
         )
     }

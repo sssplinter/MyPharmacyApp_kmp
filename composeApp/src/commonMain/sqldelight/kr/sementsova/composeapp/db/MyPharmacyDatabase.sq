@@ -12,6 +12,21 @@ CREATE TABLE MedicineType(
     type TEXT NOT NULL
 );
 
+INSERT INTO MedicineType(id, type) VALUES (1, 'Other');
+INSERT INTO MedicineType(id, type) VALUES (2, 'Analgesics');
+INSERT INTO MedicineType(id, type) VALUES (3, 'Antibiotics');
+INSERT INTO MedicineType(id, type) VALUES (4, 'Anticoagulants_And_Thrombolytics');
+INSERT INTO MedicineType(id, type) VALUES (5, 'Antidepressants');
+INSERT INTO MedicineType(id, type) VALUES (6, 'Antivirals');
+INSERT INTO MedicineType(id, type) VALUES (7, 'Barbiturates');
+INSERT INTO MedicineType(id, type) VALUES (8, 'Beta_Blockers');
+INSERT INTO MedicineType(id, type) VALUES (9, 'Corticosteroids');
+INSERT INTO MedicineType(id, type) VALUES (10, 'Cough_Suppressants');
+INSERT INTO MedicineType(id, type) VALUES (11, 'Expectorant');
+INSERT INTO MedicineType(id, type) VALUES (12, 'Hormones');
+INSERT INTO MedicineType(id, type) VALUES (13, 'Sedatives');
+INSERT INTO MedicineType(id, type) VALUES (14, 'Vitamins');
+
 insertMedicineType:
 INSERT INTO MedicineType(type) VALUES (?);
 
