@@ -1,38 +1,46 @@
 package presentation.ui.screens.medicines_list.state
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.viewModelScope
-import presentation.common.threads.ioD
-import data.entity.Medicine
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import data.repository.MedicinesRepository
 import domain.use_cases.DeleteMedicineUseCase
 import domain.use_cases.GetAllMedicinesUseCase
-import presentation.common.BaseViewModel
+import kotlinx.coroutines.launch
+import presentation.base.mvi.MVIViewModel
+import presentation.ui.screens.medicines_list.state.MedicinesListEffect.NavigateToAddMedicine
+import presentation.ui.screens.medicines_list.state.MedicinesListEvent.OnAddMedicineClick
+import presentation.ui.screens.medicines_list.state.MedicinesListEvent.OnDeleteMedicineClick
+import presentation.ui.screens.medicines_list.state.MedicinesListState.Content
+import presentation.ui.screens.medicines_list.state.MedicinesListState.Loading
 
 class MedicinesListViewModel(
     private val getAllMedicinesUseCase: GetAllMedicinesUseCase,
     private val deleteMedicineUseCase: DeleteMedicineUseCase
-) : BaseViewModel() {
+) : MVIViewModel<MedicinesListEvent, MedicinesListState, MedicinesListEffect>() {
 
-    val medicinesItems = mutableStateListOf<Medicine>()
-
-    init {
+    fun refreshList() {
         viewModelScope.launch {
             loadMedicines()
         }
     }
 
     private suspend fun loadMedicines() {
-        medicinesItems.addAll(getAllMedicinesUseCase())
+        setState { Loading }
+        val medicines = getAllMedicinesUseCase()
+        setState { Content(medicines = medicines) }
     }
 
-    fun deleteMedicine(medicineId: Long) {
+    private fun deleteMedicine(medicineId: Long) {
         viewModelScope.launch {
             deleteMedicineUseCase(medicineId)
-            medicinesItems.clear()
             loadMedicines()
+        }
+    }
+
+    override fun createInitialState(): MedicinesListState = Loading
+
+    override fun handleEvent(event: MedicinesListEvent) {
+        when (event) {
+            OnAddMedicineClick -> setEffect { NavigateToAddMedicine }
+            is OnDeleteMedicineClick -> deleteMedicine(event.medicineId)
         }
     }
 }

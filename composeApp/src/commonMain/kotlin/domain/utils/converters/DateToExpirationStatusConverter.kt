@@ -9,7 +9,6 @@ import kotlinx.datetime.daysUntil
 import kotlinx.datetime.toLocalDateTime
 import presentation.ui.screens.medicines_list.state.entity.ExpirationStatus
 
-// todo move to domain or data layer
 // todo refactor
 class DateToExpirationStatusConverter {
 
@@ -29,8 +28,4 @@ class DateToExpirationStatusConverter {
             else -> ExpirationStatus.Expired
         }
     }
-}
-
-fun String.fromUtcStringToLocalDate(): LocalDate{
-    return LocalDateTime.parse(this).date
 }

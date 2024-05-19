@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun <T> MyDropDownMenu(
+fun <T> CustomDropDownMenu(
     expanded: Boolean,
     options: List<T>,
     selectedOption: T,

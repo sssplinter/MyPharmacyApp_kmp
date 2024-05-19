@@ -1,8 +1,8 @@
-package presentation.common
+package presentation.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
-open class BaseViewModel : ViewModel(){
+abstract class BaseViewModel : ViewModel(){
     val scope = this.viewModelScope
 }

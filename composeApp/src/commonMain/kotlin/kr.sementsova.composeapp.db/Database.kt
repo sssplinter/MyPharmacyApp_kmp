@@ -18,7 +18,7 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
             name = medicine.name,
             description = medicine.description,
             expirationDateUTC = medicine.expirationDate.toString(),
-            type_id = medicine.typeId?.toLong()
+            type_id = medicine.typeId
         )
     }
 
@@ -46,11 +46,11 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
         typeId: Long?
     ): MedicineItem {
         return MedicineItem(
-            id = id.toInt(),
+            id = id,
             name = name,
             description = description,
             expirationDate = expirationDateUTC?.toLocalDate(),
-            typeId = typeId?.toInt()
+            typeId = typeId
         )
     }
 

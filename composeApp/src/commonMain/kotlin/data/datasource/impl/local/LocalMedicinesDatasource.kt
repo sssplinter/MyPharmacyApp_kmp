@@ -10,11 +10,6 @@ class LocalMedicinesDatasource(databaseDriverFactory: DatabaseDriverFactory): Me
 
     private val database = Database(databaseDriverFactory)
 
-//    init {
-//        database.insertMedicineType("Analgesics")
-//        database.insertMedicineType("Antibiotics")
-//    }
-
     override fun getAllMedicines(): List<Medicine> {
         return database.getAllMedicines()
     }

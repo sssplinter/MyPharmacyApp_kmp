@@ -1,4 +1,4 @@
-package presentation.common.threads
+package presentation.base.threads
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

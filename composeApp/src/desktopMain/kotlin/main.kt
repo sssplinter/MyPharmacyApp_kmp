@@ -4,11 +4,28 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import data.datasource.impl.local.LocalMedicinesDatasource
+import data.repository.impl.MedicineRepositoryImpl
+import domain.use_cases.AddMedicineUseCase
+import domain.use_cases.DeleteMedicineUseCase
+import domain.use_cases.GelAllMedicineTypesUseCase
+import domain.use_cases.GetAllMedicinesUseCase
 import kr.sementsova.composeapp.db.DatabaseDriverFactory
-import data.repository.MedicinesRepository
+import presentation.ui.screens.add_medicine.state.AddMedicineViewModel
+import presentation.ui.screens.medicines_list.state.MedicinesListViewModel
 
 fun main() = application {
-    val medicinesRepository = MedicinesRepository(DatabaseDriverFactory())
+
+    val datasource = LocalMedicinesDatasource(DatabaseDriverFactory())
+    val medicinesRepository = MedicineRepositoryImpl(datasource)
+    val addMedicineUseCase = AddMedicineUseCase(medicinesRepository)
+    val deleteMedicineUseCase = DeleteMedicineUseCase(medicinesRepository)
+    val getAllMedicinesUseCase = GetAllMedicinesUseCase(medicinesRepository)
+    val getAllMedicineTypesUseCase = GelAllMedicineTypesUseCase(medicinesRepository)
+    val medicinesListViewModel =
+        MedicinesListViewModel(getAllMedicinesUseCase, deleteMedicineUseCase)
+    val addMedicineViewModel =
+        AddMedicineViewModel(getAllMedicineTypesUseCase, addMedicineUseCase)
 
     val state = rememberWindowState(
         size = DpSize(700.dp, 650.dp),
@@ -19,6 +36,6 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         state = state
     ) {
-        App(medicinesRepository)
+        App(medicinesListViewModel, addMedicineViewModel)
     }
 }

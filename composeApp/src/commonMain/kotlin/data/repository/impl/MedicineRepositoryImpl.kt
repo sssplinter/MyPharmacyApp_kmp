@@ -5,7 +5,7 @@ import data.entity.Medicine
 import data.repository.MedicinesRepository
 import kotlinx.coroutines.withContext
 import kr.sementsova.composeapp.db.MedicineType
-import presentation.common.threads.ioD
+import presentation.base.threads.ioD
 
 class MedicineRepositoryImpl(
     private val localDatasource: MedicinesDatasource
