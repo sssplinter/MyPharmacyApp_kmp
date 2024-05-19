@@ -2,16 +2,14 @@ package presentation.ui.screens.add_medicine.state
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.viewModelScope
-import data.entity.Medicine
+import data.entity.MedicineItem
 import domain.use_cases.AddMedicineUseCase
 import domain.use_cases.GelAllMedicineTypesUseCase
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import kr.sementsova.composeapp.db.MedicineType
 import presentation.base.mvi.MVIViewModel
 import presentation.ui.screens.add_medicine.state.AddMedicineEffect.NavigateBack
 import presentation.ui.screens.add_medicine.state.AddMedicineEffect.OnInvalidMedicineDataAlert
@@ -33,7 +31,7 @@ class AddMedicineViewModel(
     private val today: LocalDate
         get() = Clock.System.now().toLocalDateTime(TimeZone.UTC).date
 
-    val medicineTypes = mutableStateListOf<MedicineType>()
+    val medicineTypes = mutableStateListOf<MedicineTypeUiItem>()
 
     init {
         viewModelScope.launch {
@@ -83,11 +81,11 @@ class AddMedicineViewModel(
             if (isValidMedicine()) {
                 viewModelScope.launch {
                     addMedicineUseCase(
-                        Medicine(
+                        MedicineItem(
                             name = currentState.medicineName,
                             description = currentState.medicineDescription,
                             expirationDate = currentState.expirationDate,
-                            typeId = currentState.medicineType.id
+                            type = currentState.medicineType.toMedicineTypeItem()
                         )
                     )
                     setEffect { NavigateBack }

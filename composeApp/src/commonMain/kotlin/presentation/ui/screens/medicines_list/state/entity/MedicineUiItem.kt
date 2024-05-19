@@ -1,9 +1,8 @@
 package presentation.ui.screens.medicines_list.state.entity
 
-import data.entity.Medicine
-import data.entity.MedicineTypeEnum
+import data.entity.MedicineItem
 
-data class MedicineItem(
+data class MedicineUiItem(
     val id: Long,
     val name: String,
     val description: String?,
@@ -12,13 +11,13 @@ data class MedicineItem(
     val expirationStatus: ExpirationStatus
 )
 
-fun Medicine.toMedicineItem(): MedicineItem {
-    return MedicineItem(
+fun MedicineItem.toMedicineUiItem(): MedicineUiItem {
+    return MedicineUiItem(
         id = id!!,
         name = name,
         description = description,
-        typeString = MedicineTypeEnum.entries[typeId?.toInt()!!].name,
         // TODO decide is it optional or not
+        typeString = type?.type ?: "",
         expirationDate = expirationDate!!.toString(),
         expirationStatus = expirationDate.toExpirationStatus()
     )

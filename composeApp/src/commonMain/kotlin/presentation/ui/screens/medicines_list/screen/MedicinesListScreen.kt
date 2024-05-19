@@ -1,8 +1,6 @@
 package presentation.ui.screens.medicines_list.screen
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -16,13 +14,11 @@ import cafe.adriel.voyager.core.registry.rememberScreen
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import data.entity.Medicine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import presentation.navigation.AppScreen
 import presentation.ui.screens.add_medicine.screen.items.MedicinesList
-import presentation.ui.screens.medicines_list.screen.items.MedicineListItem
 import presentation.ui.screens.medicines_list.state.MedicinesListEffect.NavigateToAddMedicine
 import presentation.ui.screens.medicines_list.state.MedicinesListEvent.OnAddMedicineClick
 import presentation.ui.screens.medicines_list.state.MedicinesListEvent.OnDeleteMedicineClick
@@ -30,7 +26,6 @@ import presentation.ui.screens.medicines_list.state.MedicinesListState
 import presentation.ui.screens.medicines_list.state.MedicinesListState.Content
 import presentation.ui.screens.medicines_list.state.MedicinesListState.Loading
 import presentation.ui.screens.medicines_list.state.MedicinesListViewModel
-import presentation.ui.screens.medicines_list.state.entity.toMedicineItem
 import presentation.ui.utils.ui.floating_action_button.AddFloatingActionButton
 import presentation.ui.utils.ui.loading_screen.LoadingScreen
 
@@ -67,7 +62,7 @@ class MedicinesListScreen(private val viewModel: MedicinesListViewModel) : Scree
                 is Content -> MedicinesList(
                     uiState.medicines,
                     onDeleteClick = { medicine ->
-                        viewModel.setEvent(OnDeleteMedicineClick(medicine.toLong()))
+                        viewModel.setEvent(OnDeleteMedicineClick(medicine))
                     })
 
                 Loading, null -> LoadingScreen()

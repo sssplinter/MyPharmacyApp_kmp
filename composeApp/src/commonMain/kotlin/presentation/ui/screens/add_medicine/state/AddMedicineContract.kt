@@ -1,19 +1,18 @@
 package presentation.ui.screens.add_medicine.state
 
 import kotlinx.datetime.LocalDate
-import kr.sementsova.composeapp.db.MedicineType
 import presentation.base.mvi.UiEffect
 import presentation.base.mvi.UiEvent
 import presentation.base.mvi.UiState
 
-sealed interface AddMedicineState: UiState{
+sealed interface AddMedicineState : UiState {
 
     data object Loading : AddMedicineState
 
     data class FillingOut(
         val medicineName: String = "",
         val medicineDescription: String = "",
-        val medicineType: MedicineType,
+        val medicineType: MedicineTypeUiItem,
         val expirationDate: LocalDate,
     ) : AddMedicineState
 }
@@ -27,7 +26,7 @@ sealed interface AddMedicineEvent : UiEvent {
 
         data class MedicineNameChanged(val medicineName: String) : InputEvent
         data class MedicineDescriptionChanged(val medicineDescription: String) : InputEvent
-        data class MedicineTypeChanged(val medicineType: MedicineType) : InputEvent
+        data class MedicineTypeChanged(val medicineType: MedicineTypeUiItem) : InputEvent
         data class MedicineExpirationDateChanged(val expirationDate: LocalDate) : InputEvent
     }
 }

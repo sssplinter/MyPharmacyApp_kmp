@@ -32,7 +32,6 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
-import presentation.base.mvi.UiState
 import presentation.ui.screens.add_medicine.state.AddMedicineEffect.NavigateBack
 import presentation.ui.screens.add_medicine.state.AddMedicineEffect.OnInvalidMedicineDataAlert
 import presentation.ui.screens.add_medicine.state.AddMedicineEvent.InputEvent.MedicineDescriptionChanged
@@ -40,7 +39,6 @@ import presentation.ui.screens.add_medicine.state.AddMedicineEvent.InputEvent.Me
 import presentation.ui.screens.add_medicine.state.AddMedicineEvent.InputEvent.MedicineNameChanged
 import presentation.ui.screens.add_medicine.state.AddMedicineEvent.InputEvent.MedicineTypeChanged
 import presentation.ui.screens.add_medicine.state.AddMedicineEvent.OnAddMedicineClick
-import presentation.ui.screens.add_medicine.state.AddMedicineState
 import presentation.ui.screens.add_medicine.state.AddMedicineState.FillingOut
 import presentation.ui.screens.add_medicine.state.AddMedicineState.Loading
 import presentation.ui.screens.add_medicine.state.AddMedicineViewModel

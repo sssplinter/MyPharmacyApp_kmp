@@ -1,15 +1,15 @@
 package data.repository
 
-import data.entity.Medicine
-import kr.sementsova.composeapp.db.MedicineType
+import data.entity.MedicineItem
+import data.entity.MedicineTypeItem
 
 interface MedicinesRepository {
 
-    suspend fun getAllMedicineTypes(): List<MedicineType>
+    suspend fun getAllMedicineTypes(): List<MedicineTypeItem>
 
-    suspend fun insertMedicine(medicine: Medicine)
+    suspend fun insertMedicine(medicineItem: MedicineItem)
 
     suspend fun deleteMedicine(id: Long)
 
-    suspend fun getAllMedicines(): List<Medicine>
+    suspend fun getAllMedicines(): List<MedicineItem>
 }

@@ -1,7 +1,8 @@
 package kr.sementsova.composeapp.db
 
+import data.entity.MedicineItem
+import data.entity.MedicineTypeItem
 import kotlinx.datetime.toLocalDate
-import data.entity.Medicine as MedicineItem
 
 
 internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
@@ -9,8 +10,13 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
     private val database = MyPharmacyDatabase(databaseDriverFactory.createDriver())
     private val dbQuery = database.myPharmacyDatabaseQueries
 
-    internal fun getAllMedicines(): List<MedicineItem> {
-        return dbQuery.getAllMedicines(::mapMedicineItem).executeAsList()
+    fun getAllMedicines(): List<MedicineItem> {
+        val medicineTypes = dbQuery.getAllMedicineTypes(::mapMedicineTypeItem).executeAsList()
+        return dbQuery.getAllMedicines().executeAsList()
+            .map { item ->
+                val type = medicineTypes.find { it.id == item.type_id }
+                item.mapMedicineItem(type)
+            }
     }
 
     fun insertMedicine(medicine: MedicineItem) {
@@ -18,7 +24,7 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
             name = medicine.name,
             description = medicine.description,
             expirationDateUTC = medicine.expirationDate.toString(),
-            type_id = medicine.typeId
+            type_id = medicine.type?.id
         )
     }
 
@@ -34,23 +40,26 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
         dbQuery.insertMedicineType(type = type)
     }
 
-    fun getAllMedicineTypes(): List<MedicineType> {
-        return dbQuery.getAllMedicineTypes().executeAsList()
+    fun getAllMedicineTypes(): List<MedicineTypeItem> {
+        return dbQuery.getAllMedicineTypes(::mapMedicineTypeItem).executeAsList()
     }
 
-    private fun mapMedicineItem(
-        id: Long,
-        name: String,
-        description: String?,
-        expirationDateUTC: String?,
-        typeId: Long?
+    private fun Medicine.mapMedicineItem(
+        medicineType: MedicineTypeItem?
     ): MedicineItem {
         return MedicineItem(
             id = id,
             name = name,
             description = description,
             expirationDate = expirationDateUTC?.toLocalDate(),
-            typeId = typeId
+            type = medicineType
+        )
+    }
+
+    private fun mapMedicineTypeItem(id: Long, type: String): MedicineTypeItem {
+        return MedicineTypeItem(
+            id = id,
+            type = type
         )
     }
 

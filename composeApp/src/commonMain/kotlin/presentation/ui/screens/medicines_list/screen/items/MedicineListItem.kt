@@ -20,13 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import presentation.ui.screens.medicines_list.state.entity.ExpirationStatus
-import presentation.ui.screens.medicines_list.state.entity.MedicineItem
+import presentation.ui.screens.medicines_list.state.entity.MedicineUiItem
 import presentation.ui.utils.ui.tag.TagView
 
 @Composable
 fun MedicineListItem(
-    medicine: MedicineItem,
-    onDeleteClick: (MedicineItem) -> Unit,
+    medicine: MedicineUiItem,
+    onDeleteClick: (MedicineUiItem) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(

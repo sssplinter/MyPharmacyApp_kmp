@@ -1,15 +1,15 @@
 package data.datasource
 
-import data.entity.Medicine
-import kr.sementsova.composeapp.db.MedicineType
+import data.entity.MedicineItem
+import data.entity.MedicineTypeItem
 
 interface MedicinesDatasource {
 
-    fun getAllMedicines(): List<Medicine>
+    fun getAllMedicines(): List<MedicineItem>
 
-    fun insertMedicine(medicine: Medicine)
+    fun insertMedicine(medicineItem: MedicineItem)
 
     fun deleteMedicine(id: Long)
 
-    fun getAllMedicineTypes(): List<MedicineType>
+    fun getAllMedicineTypes(): List<MedicineTypeItem>
 }
