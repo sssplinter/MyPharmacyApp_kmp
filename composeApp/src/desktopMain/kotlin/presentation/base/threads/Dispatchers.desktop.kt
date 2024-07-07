@@ -1,8 +1,8 @@
 package presentation.base.threads
 
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.swing.Swing
 
-actual val ioDispatcher: CoroutineDispatcher
-    get() = TODO("Not yet implemented")
-actual val uiDispatcher: CoroutineDispatcher
-    get() = TODO("Not yet implemented")
+actual val ioDispatcher: CoroutineDispatcher = Dispatchers.Swing
+actual val uiDispatcher: CoroutineDispatcher = Dispatchers.Main

@@ -47,7 +47,6 @@ kotlin {
                 implementation(libs.compose.material.dialogs.datetime)
                 implementation(libs.listenablefuture)
                 implementation(libs.kotlinx.datetime)
-//                implementation(libs.voyager.navigator)
 
                 implementation("cafe.adriel.voyager:voyager-navigator:1.0.0-rc10") {
                     exclude(
@@ -56,18 +55,13 @@ kotlin {
                     )
                 }
 
-                implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.0-rc01")
-//                implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
-
-
-
+                implementation(libs.androidx.lifecycle.viewmodel)
                 implementation("app.cash.sqldelight:runtime:$sqldelightVersion")
             }
         }
 
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
-//            implementation(libs.androidx.activity.compose)
             implementation("androidx.activity:activity-compose:1.9.0") {
                 exclude(
                     group = "androidx.lifecycle",
@@ -86,6 +80,8 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation("app.cash.sqldelight:sqlite-driver:$sqldelightVersion")
+            implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.sqlite.jdbc)
         }
     }
 }
@@ -110,11 +106,6 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-//    buildTypes {
-//        getByName("release") {
-//            isMinifyEnabled = false
-//        }
-//    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -126,7 +117,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.compiler)
-    implementation("androidx.core:core-ktx:+")
+    implementation(libs.androidx.core.ktx)
 }
 
 compose.desktop {

@@ -16,12 +16,16 @@ compose-plugin = "1.5.11"
 composeMaterialDialogsDatetime = "0.9.4"
 junit = "4.13.2"
 kotlin = "1.9.21"
+kotlinxCoroutinesSwing = "1.7.3"
 kotlinxDatetime = "0.4.1"
+lifecycleViewmodel = "2.8.0-rc01"
 listenablefuture = "9999.0-empty-to-avoid-conflict-with-guava"
 sqldelight-version = "2.0.0"
+sqliteJdbc = "3.34.0"
 voyagerVersion = "1.0.0-rc10"
 
 [libraries]
+androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
 compose-material-dialogs-datetime = { module = "ca.gosyer:compose-material-dialogs-datetime", version.ref = "composeMaterialDialogsDatetime" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -39,8 +43,10 @@ compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview"
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
 androidx-compiler = { group = "androidx.databinding", name = "compiler", version = "3.2.0-alpha11" }
+kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinxCoroutinesSwing" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 listenablefuture = { module = "com.google.guava:listenablefuture", version.ref = "listenablefuture" }
+sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqliteJdbc" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyagerVersion" }
 
 [plugins]
